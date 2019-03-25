@@ -59,7 +59,7 @@ router.post('/register', (req, res) => {
             email: req.body.email,
             password: req.body.password
           });
-          
+
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
               if(err) throw err;
@@ -78,6 +78,13 @@ router.post('/register', (req, res) => {
         }
       });
   }
+});
+
+// Logout User
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/users/login');
 });
 
 module.exports = router;
